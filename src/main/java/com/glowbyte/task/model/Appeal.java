@@ -25,4 +25,23 @@ public class Appeal {
         }
         this.carAreas = carAreas;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (CarArea carArea : getCarAreas()) {
+            sb.append("Ремонтная зона: ").append(carArea.getName()).append("\n").append("---\n");
+            int i = 1;
+            for (CarComponent carComponent : carArea.getCarComponents()) {
+                sb.append("Элемент автомобиля: ").append(carComponent.getName()).append("\n");
+                sb.append("Стоимость: ").append(carComponent.getPrice()).append("\n");
+                sb.append("Комментарий: ").append(carComponent.getComment()).append("\n");
+                sb.append("Действие: ").append(carComponent.getCarComponentAction().getName()).append("\n");
+                if (i != carArea.getCarComponents().size()) sb.append("---\n");
+                i++;
+            }
+            sb.append("\n");
+        }
+        return sb.toString();
+    }
 }

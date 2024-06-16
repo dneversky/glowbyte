@@ -1,0 +1,111 @@
+openapi: 3.0.3
+info:
+  title: Swagger - Open API 3.0
+  version: "1.0"
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: /appeals
+    description: "Работа с заявками"
+paths:
+  /appeals/calculate-total-price:
+    post:
+      tags:
+        - /appeals
+      summary: "Расчет полной стоимости всех работ указанных в заявке"
+      description: Расчет полной стоимости работ всех областей ремонта указанных в заявке.
+      operationId: calculateAppealTotalPrice
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appeal'
+      responses:
+        '200':
+          description: Успешная операция
+          content:
+            application/json:
+              schema:
+                type: number
+        '400':
+          description: Входящие параметры представлены некорректно
+        '406':
+          description: Передан недопустимый тип параметров
+        '500':
+          description: Внутренняя ошибка сервера
+  /appeals:
+    post:
+      tags:
+        - /appeals
+      summary: "Сохранение заявки в локальной и распределенной файловых системах."
+      description: "Сохранение заявки в локальной и распределенной файловых системах.
+        Чтобы увидеть загруженные на min.io файлы нужно перейти на https://play.min.io:9443/browser/
+        под логином и паролем указанных в конфигурационном файле приложения application.yaml"
+      operationId: saveAppeal
+      requestBody:
+        description: ""
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Appeal'
+      responses:
+        '200':
+          description: Успешная операция
+          content:
+            application/json:
+              schema:
+                type: number
+        '400':
+          description: Входящие параметры представлены некорректно
+        '406':
+          description: Передан недопустимый тип параметров
+        '500':
+          description: Внутренняя ошибка сервера
+components:
+  schemas:
+    Appeal:
+      type: object
+      properties:
+        carAreas:
+          type: array
+          items:
+            $ref: '#/components/schemas/CarArea'
+      xml:
+        name: appeal
+    CarArea:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Кузов"
+        carComponents:
+          type: array
+          items:
+            $ref: '#/components/schemas/CarComponent'
+      xml:
+        name: carArea
+    CarComponent:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Передняя левая дверь"
+        comment:
+          type: string
+          example: Стекло немного поцарапано
+        price:
+          type: number
+          example: 3990
+        carComponentAction:
+          $ref: '#/components/schemas/СarComponentAction'
+      xml:
+        name: carComponent
+    СarComponentAction:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Ремонт"
+      xml:
+        name: carComponentAction

@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    default: prod
+  jackson:
+    default-property-inclusion: always
+springdoc:
+  swagger-ui:
+    url: /openapi.yaml
+    path: /
+    doc-expansion: none
+    disable-swagger-default-url: true
+min-io:
+  storage:
+    login: Q3AM3UQ867SPQQA43P2F
+    password: zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG
+  bucket-name: glowtask
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  devtools:
+    livereload:
+      enabled: false
+storageDirectory: C:\\Users\\dneve\\OneDrive\\Desktop
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+storageDirectory:

@@ -5,8 +5,8 @@
 - скачайте и установите JRE 17 версии и выше
 - скачайте и распакуйте репозиторий на компьютер
 - откройте командную консоль в распакованном каталоге
-- выполните команду `start gradlew.bat bootRun` (Windows)
-- выполните команду `gradlew bootRun` (Unix)
+- выполните команду `start gradlew.bat bootRun` (заявки будут сохраняться в build/classes/java/main)
+- или `start gradlew.bat bootRun --args='--storageDirectory=%UserProfile%\Downloads'`, где `%UserProfile%\Downloads` - директория для сохранения заявок
 ### Запуск с помощью Docker
 - скачайте образ командой `docker pull dneversky/glowbyte:latest`
 - запустите контейнер командой `docker run -dp 8080:8080 --rm --name glowbyte dneversky/glowbyte:latest`

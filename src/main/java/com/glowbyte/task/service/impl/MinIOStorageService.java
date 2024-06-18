@@ -1,5 +1,6 @@
-package com.glowbyte.task.service;
+package com.glowbyte.task.service.impl;
 
+import com.glowbyte.task.service.RemoteStorageService;
 import io.minio.BucketExistsArgs;
 import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class MinIOStorageService {
+public class MinIOStorageService implements RemoteStorageService {
 
     @Value("${min-io.bucket-name}")
     private String bucketName;
@@ -24,8 +25,9 @@ public class MinIOStorageService {
         this.minioClient = minioClient;
     }
 
-    public void store(String localFilePath, String remoteFileName) {
+    public String store(String localFilePath, String remoteFileName) {
         uploadFile(localFilePath, remoteFileName);
+        return remoteFileName;
     }
 
     private void uploadFile(String localFilePath, String remoteFileName) {

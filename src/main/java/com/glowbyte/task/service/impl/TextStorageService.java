@@ -1,5 +1,6 @@
-package com.glowbyte.task.service;
+package com.glowbyte.task.service.impl;
 
+import com.glowbyte.task.service.LocalStorageService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Primary;
@@ -13,17 +14,17 @@ import java.time.LocalDate;
 
 @Primary
 @Service
-public class FileSystemStorageService implements StorageService<String> {
+public class TextStorageService implements LocalStorageService <String> {
 
     @Value("${storageDirectory}")
     private String storageDirectory;
 
-    public String store(String obj, String fileName) {
+    public String store(String source, String fileName) {
         File todayDirectory = new File(storageDirectory, LocalDate.now().toString());
         todayDirectory.mkdirs();
         File file = new File(todayDirectory, fileName + ".txt");
         try {
-            Files.writeString(file.toPath(), obj, StandardCharsets.UTF_8);
+            Files.writeString(file.toPath(), source, StandardCharsets.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

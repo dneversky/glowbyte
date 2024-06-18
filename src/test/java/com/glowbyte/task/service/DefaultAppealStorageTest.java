@@ -4,6 +4,8 @@ import com.glowbyte.task.model.Appeal;
 import com.glowbyte.task.model.CarArea;
 import com.glowbyte.task.model.CarComponent;
 import com.glowbyte.task.model.CarComponentAction;
+import com.glowbyte.task.service.impl.AppealStorageFacade;
+import com.glowbyte.task.service.impl.DefaultAppealPriceCalculator;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -16,25 +18,25 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
-class DefaultAppealServiceTest {
+class DefaultAppealStorageTest {
 
     private final Appeal appeal = buildAppeal();
 
     @Mock
-    private StorageService<String> storageService;
+    private AppealStorageFacade appealStorageFacade;
 
     @InjectMocks
-    private DefaultAppealService appealService;
+    private DefaultAppealPriceCalculator appealPriceCalculator;
 
     @Test
     void calculateTotalPrice() {
-        int totalPrice = appealService.calculateTotalPrice(appeal);
+        int totalPrice = appealPriceCalculator.calculate(appeal);
         assertEquals(4, totalPrice);
     }
 
     @Test
     void save() {
-        assertDoesNotThrow(() -> appealService.save(appeal));
+        assertDoesNotThrow(() -> appealStorageFacade.store(appeal));
     }
 
     private Appeal buildAppeal() {

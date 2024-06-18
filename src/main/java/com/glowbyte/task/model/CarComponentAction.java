@@ -2,10 +2,13 @@ package com.glowbyte.task.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.glowbyte.task.exception.InvariantException;
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Data
 public class CarComponentAction implements Serializable {
 
